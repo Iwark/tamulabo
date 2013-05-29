@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:7cb35072-0b9c-43d3-a26f-7bffa9fedf90</dc:identifier>
+    <dc:title>デジタル教科書・教材の作例</dc:title>
+    <dc:creator opf:role="aut">岩崎広平、中嶋俊也、篠原 駿、田村恭久</dc:creator>
+    <dc:language>ja</dc:language>
+    <dc:date opf:event="modification">2013-05-15</dc:date>
+    <meta content="0.7.2" name="Sigil version" />
+  </metadata>
+  <manifest>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml" />
+    <item href="Text/Section01.xhtml" id="Section01.xhtml" media-type="application/xhtml+xml" />
+    <item href="Text/Section02.xhtml" id="Section02.xhtml" media-type="application/xhtml+xml" />
+    <item href="Text/Section03.xhtml" id="Section03.xhtml" media-type="application/xhtml+xml" />
+    <item href="Text/Section04.xhtml" id="Section04.xhtml" media-type="application/xhtml+xml" />
+    <item href="Text/Section05.xhtml" id="Section05.xhtml" media-type="application/xhtml+xml" />
+    <item href="Text/Section06.xhtml" id="Section06.xhtml" media-type="application/xhtml+xml" />
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="Section01.xhtml" />
+    <itemref idref="Section02.xhtml" />
+    <itemref idref="Section03.xhtml" />
+    <itemref idref="Section04.xhtml" />
+    <itemref idref="Section05.xhtml" />
+    <itemref idref="Section06.xhtml" />
+  </spine>
+  <guide />
+</package>

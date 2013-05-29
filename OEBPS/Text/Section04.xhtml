@@ -1,0 +1,5501 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title></title>
+
+  <script src="../Misc/http_test.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/js1.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/js2.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/js4.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/prototype.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/jquery-1.9.1.js" charset="utf-8" type="text/javascript"></script>
+  <link rel="stylesheet" href="../Misc/fn23ex.css" type="text/css"></link>
+  <link rel="stylesheet" href="../Misc/fn36.css" type="text/css"></link>
+</head>
+
+<body>
+  <h1>第３章 電子教科書の典型的な機能５２項目の解説</h1>
+
+  <p>&nbsp;ここでは、上智大学 田村研究室で検討している題記の５２項目について解説し、またePubを用いた実装例を紹介します。ePubブラウザやePub自体の規格の関係で、動作しない、あるいは実装が未完である場合がありますが、ご容赦ください。</p>
+
+  <ol>
+    <li><a href="#func01">LMSによる認証</a><br /></li>
+
+    <li><a href="#func02">オンライン認証</a><br /></li>
+
+    <li><a href="#func03">オフライン認証</a><br /></li>
+
+    <li><a href="#func04">デジタル著作権管理</a><br /></li>
+
+    <li><a href="#func05">著作権侵害の場合の利用制限</a><br /></li>
+
+    <li><a href="#func06">表示テキストのサイズ調整</a><br /></li>
+
+    <li><a href="#func07">言語依存のテキスト表示</a><br /></li>
+
+    <li><a href="#func08">表組みのサポート</a><br /></li>
+
+    <li><a href="#func09">マルチメディア再生(画像，動画，3D)</a>&nbsp;<br /></li>
+
+    <li><a href="#func10">音声の再生</a><br /></li>
+
+    <li><a href="#func11">対話型操作</a><br /></li>
+
+    <li><a href="#func12">ページ移動</a><br /></li>
+
+    <li><a href="#func13">目次の表示，目次から目的頁に移動&nbsp;</a><br /></li>
+
+    <li><a href="#func14">脚注の表示，脚注から目的頁に移動</a><br /></li>
+
+    <li><a href="#func15">語彙集／索引の表示，目的頁への移動</a><br /></li>
+
+    <li><a href="#func16">テキストの検索</a><br /></li>
+
+    <li><a href="#func17">ページ印刷</a><br /></li>
+
+    <li><a href="#func18">テキストのコピー</a><br /></li>
+
+    <li><a href="#func19">辞書の表示</a><br /></li>
+
+    <li><a href="#func20">参考書の表示</a><br /></li>
+
+    <li><a href="#func21">参考書の選択</a><br /></li>
+
+    <li><a href="#func22">ハイパーリンク</a><br /></li>
+
+    <li><a href="#func23">ノートの追加，修正，削除</a><br /></li>
+
+    <li><a href="#func24">ノートに描画を含める</a><br /></li>
+
+    <li><a href="#func25">ノートウィンドウの移動，リサイズ</a><br /></li>
+
+    <li><a href="#func26">ノートの検索</a><br /></li>
+
+    <li><a href="#func27">ノートの印刷</a><br /></li>
+
+    <li><a href="#func28">参考文献へのリンクの追加／削除</a><br /></li>
+
+    <li><a href="#func29">ブックマークの追加／削除</a><br /></li>
+
+    <li><a href="#func30">下線／ハイライトの追加／削除</a><br /></li>
+
+    <li><a href="#func31">ハイパーリンクの追加／削除</a>&nbsp;<br /></li>
+
+    <li><a href="#func32">音声メモの追加／再生／削除</a><br /></li>
+
+    <li><a href="#func33">追加情報一覧の表示</a><br /></li>
+
+    <li><a href="#func34">追加情報の日時保存／表示</a><br /></li>
+
+    <li><a href="#func35">サーバへのデータ転送</a><br /></li>
+
+    <li><a href="#func36">学習者に適した画面の構成変更</a><br /></li>
+
+    <li><a href="#func37">タブレットPCセンサーの情報利用</a><br /></li>
+
+    <li><a href="#func38">他のアプリケーションへのリンク，起動</a><br /></li>
+
+    <li><a href="#func39">スクリーンイメージキャプチャ</a><br /></li>
+
+    <li><a href="#func40">教科書内容が更新された際の反映</a><br /></li>
+
+    <li><a href="#func41">告知用掲示板</a><br /></li>
+
+    <li><a href="#func42">生徒書込用掲示板</a><br /></li>
+
+    <li><a href="#func43">Q&amp;A掲示板</a><br /></li>
+
+    <li><a href="#func44">時間割の提示</a><br /></li>
+
+    <li><a href="#func45">クイズの自動正誤判定</a><br /></li>
+
+    <li><a href="#func46">学習履歴管理</a><br /></li>
+
+    <li><a href="#func47">名簿等のデータベース管理</a><br /></li>
+
+    <li><a href="#func48">ファイルフォーマット</a><br /></li>
+
+    <li><a href="#func49">サイズと重量</a><br /></li>
+
+    <li><a href="#func50">バッテリー</a><br /></li>
+
+    <li><a href="#func51">ユーザインタフェース</a><br /></li>
+
+    <li><a href="#func52">ネットワーク接続</a><br /></li>
+  </ol>
+
+  <div style="page-break-before: always;">
+    <p><a id="func01">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>認証</td>
+
+        <td width="10%">＃</td>
+
+        <td>01</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">LMSによる認証</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">電子教科書の利用者がLMSに登録されているかをチェックする</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">HTMLの入力フォームに指定するLMSのアドレスを入力して，接続テストを行う．成功すればアプリ内にそのアドレスを保存し，失敗ならば再入力を促す．アドレスは一時データ（<a href="#comment01">※１</a>）として保存．</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func02">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>認証<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>02</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">オンライン認証</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">電子教科書の利用者が出版社や配給元から認証されているか，オンライン環境でチェックする</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">フォームに入力した情報を，GETメソッドを使いSafari経由で認証．一度入力した認証情報をCookieに登録しておくことで，次回以降の入力は省略できる．</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+        <td colspan="3">
+          <p>※テスト用アカウント Name: test  Password: test</p>
+          <div id="read">
+            あなたは、まだログインしていません。
+          </div>
+          <p><button onclick="able();">フォームの有効化</button></p>
+          <form>
+            <div>
+              <label for="name">Name</label> <input id="login_name" name="name" type="text" />
+            </div>
+            <div>
+              <label for="password">Password</label> <input id="login_password" name="password" type="password" />
+            </div>
+          </form>
+          <p><button onclick="http_test.login('sessions','POST');">Sign In</button></p>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>△</td>
+
+        <td>教科書へ戻れない</td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td>教科書へ戻れない</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>△</td>
+
+        <td>教科書へ戻れない</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>△</td>
+
+        <td>教科書へ戻れない</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func03">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>認証<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>03</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">オフライン認証</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">電子教科書の利用者が出版社や配給元から認証されているか，オフライン環境でチェックする</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">あらかじめ使用する端末をePubに登録しておき，登録された端末でのみ開けられるよう暗号化されたePubファイルで閲覧する</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func04">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>著作権</td>
+
+        <td width="10%">＃</td>
+
+        <td>04</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">デジタル著作権管理</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ファイルやコンテンツが著作権ポリシーに沿って保護されている(ソーシャルDRMや商用DRM)</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3"> ソーシャルDRM：暗号化されたコンテンツデータの中に配信元，配信ルート，配信先IDなどを埋め込む。これにより不正に流出したファイルがあれば埋め込まれたデータから流通させた購入者を特定するが可能になる</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func05">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>著作権</td>
+
+        <td width="10%">＃</td>
+
+        <td>05</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">著作権侵害の場合の利用制限</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">著作権侵害の場合，本文やメディアの表示や操作を制限する</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">未定</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>×</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>×</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func06">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>06</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">表示テキストのサイズ調整</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">本文の表示サイズを変更可能</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">ePubリーダーとして実現している場合が多く、ePubドキュメント自体の機能として実現することはあまり一般的でない</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func07">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>07</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">言語依存のテキスト表示</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">縦書き，ルビ，禁則処理など</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">
+          <ul>
+            <li>縦書き：CSSを用いる． -webkit-writing-mode: vertical-rl;</li>
+
+            <li>右綴じ：content.opfで，各ページの順番を設定する&lt;spine&gt; に，page-progression-direction="rtl" (rtlは”right to left”を意味する)を加える．</li>
+
+            <li>ルビ表示：HTMLタグの&lt;ruby&gt;を用いる．</li>
+
+            <li>禁則処理：ePubリーダーにより，自動で行われる．</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td>右綴じのみ不可。</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td>縦書きのみ不可。</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>.mobiでは不可。</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>△</td>
+
+        <td>右綴じ、縦書き不可。</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func08">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>08</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">表組みのサポート</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">&lt;table&gt;タグのサポートなど</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">&lt;table&gt;タグを用いる</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+        <br />
+        <td colspan="3">
+          <table border="4" width="250">
+    <tr class="sgc-1">
+      <th>表例</th>
+
+      <th>列-A</th>
+
+      <th>列-B</th>
+
+      <th>列-C</th>
+    </tr>
+
+    <tr align="center">
+      <td>行-1</td>
+
+      <td>A1</td>
+
+      <td>B1</td>
+
+      <td rowspan="2">C1-C2</td>
+    </tr>
+
+    <tr align="center">
+      <td>行-2</td>
+
+      <td>A2</td>
+
+      <td>B2</td>
+    </tr>
+
+    <tr align="center">
+      <td>行-3</td>
+
+      <td>A3</td>
+
+      <td colspan="2">A3-B3</td>
+    </tr>
+  </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>tableタグ非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+    <br />
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func09">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>09</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">マルチメディア再生(画像，動画，3D)</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">3D ファイル：3D-TV, Quick Time-VR, VRMLなど</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">
+          <ul>
+            <li>画像：HTMLのimageタグ</li>
+
+            <li>動画：HTMLのvideoタグ</li>
+
+            <li>3D：(1)HTMLのCanvas機能を用いる方法、(2)レンダリングエンジンwebkitを用いる方法</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+        <h1>画像</h1>
+        <ul>
+        <li>jpg <img alt="" height="100" src="../Misc/sample.jpg" width="100" /></li>
+        <li>png <img alt="" height="100" src="../Misc/sample.png" width="100" /></li>
+        <li>bmp <img alt="" height="100" src="../Misc/sample.bmp" width="100" /></li>
+        <li>tiff <img alt="" height="100" src="../Misc/sample.tiff" width="100" /></li>
+        </ul>
+        
+        <h1>動画</h1>
+        <ul>
+<li>mp4</li>
+<video src="../video/sample.mp4" type="Misc/mp4" width="180" height="140" controls="controls">
+</video>
+<li>mpg</li>
+<video src="../video/sample.mpg" type="Misc/mpg" width="180" height="140" controls="controls">
+</video>
+<li>mov</li>
+<video src="../video/sample.mov" type="Misc/mov" width="180" height="140" controls="controls">
+</video>
+</ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>画像 ○<br />
+        動画 ○<br />
+        ３D ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>画像 ○<br />
+        動画 ○<br />
+        ３D ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>画像 ○<br />
+        動画 ×<br />
+        ３D ×<br /></td>
+
+        <td>タグ, Canvas, webkitに非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>画像 ○<br />
+        動画 ×<br />
+        ３D ×<br /></td>
+
+        <td>タグ, Canvas, webkitに非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>画像 ○<br />
+        動画 ○<br />
+        ３D ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>画像 ○<br />
+        動画 ○<br />
+        ３D ×<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  
+   <div style="page-break-before: always;">
+    <p><a id="func10">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>10</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">音声の再生</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">音声ファイル： MP3, WMA, QuickTime など</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">HTMLのaudioタグを用いる</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+        <ul>
+<li>mp3</li>
+<audio controls="mp3">
+  <source src="../Misc/sample.mp3" type="audio/mp3">
+</source>
+</audio>
+<li>aac</li>
+<audio controls="m4a">
+  <source src="../Misc/sample.m4a" type="audio/aac">
+</source>
+</audio>
+<li>wma</li>
+<audio controls="wma">
+  <source src="../Misc/sample.wma" type="audio/wma" >
+</source>
+</audio>
+<li>wav</li>
+<audio controls="wav">
+  <source src="../Misc/sample.wav" type="audio/wav" >
+</source>
+</audio>
+<li>ogg</li>
+<audio controls="ogg">
+  <source src="../Misc/sample.ogg" type="audio/ogg" >
+</source>
+</audio>
+</ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>タグに非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>タグに非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func11">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>11</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">対話型操作</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">クイズ判定，表示／非表示の選択，入力フォームの処理など</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">JavaScriptを用いる</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+            問. パンはパンでも食べれないパンは何？<br />
+            正解だと思う答えを選択して、「答えあわせ」ボタンを押してね。<br />
+            <input type="radio" name="fn11quiz" id="fn11quiz" value="false" />あんぱん<br />
+            <input type="radio" name="fn11quiz" id="fn11quiz" value="false" />フランスパン<br />
+            <input type="radio" name="fn11quiz" id="fn11quiz" value="true" />フライパン<br />
+            <input type="button" id="fn11hint" value="ヒントを見る" onclick="fn11hint()" /><br />
+            <div id="fn11hintarea"></div><br />
+            <input type="button" value="答えあわせ" onclick="fn11answer()" /><br />
+            <div id="fn11answerarea"></div><br />
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScriptに非対応。</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>JavaScriptに非対応。</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func12">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>12</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ページ移動</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">前，後，ページ指定</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">通常はePubリーダーの機能として実現される</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>前後 ○<br />
+        指定 ×</td>
+
+        <td>リーダーがページ指定に非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>前後 ○<br />
+        指定 ×<br /></td>
+
+        <td>リーダーがページ指定に非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func13">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>13</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">目次の表示，目次から目的頁に移動</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">(1) ePubの目次機能を用いる．toc.ncxで目次を設定. (各ページの順番はcontent.opfで設定するが，toc.ncxでは目次の表示順を設定できる.)目次から，移動したいページをタッチすると自動的に移動が可能． (2)ハイパーリンクを用いて，目次を一から作る．<br /></td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>(1) ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>(1) ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func14">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>14</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">脚注の表示，脚注から目的頁に移動</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">脚注表示の選択肢：ページ毎／セクション毎</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">ハイパーリンクを用いる．脚注の本文をページ下部に表示させるとすると、実現方法は今後要検討。</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func15">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>15</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">語彙集／索引の表示，目的頁への移動</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>△</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>△<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func16">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>16</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">テキストの検索</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>検索機能が備わっていない</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>△<br /></td>
+
+        <td>.mobiでは不可。</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>検索機能が備わっていない</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func17">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>17</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ページ印刷</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>ページを読み込めない</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func18">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>内容表示</td>
+
+        <td width="10%">＃</td>
+
+        <td>18</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">テキストのコピー</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>コピー非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>コピー非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>コピー非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func19">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>関連情報</td>
+
+        <td width="10%">＃</td>
+
+        <td>19</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">辞書の表示</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">辞書と本文の相互リンク</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td><br /></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>△</td>
+
+        <td>要購入</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○（英語のみ）</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func20">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>関連情報</td>
+
+        <td width="10%">＃</td>
+
+        <td>20</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">参考書の表示</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">参考書と本文の相互リンク</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>×</td>
+
+        <td>ハイパーリンクだけでは<br />
+        他の書籍に移動することができない。</td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>ハイパーリンクだけでは<br />
+        他の書籍に移動することができない。</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>ハイパーリンクだけでは<br />
+        他の書籍に移動することができない。</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>×</td>
+
+        <td>ハイパーリンクだけでは<br />
+        他の書籍に移動することができない。</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func21">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>関連情報</td>
+
+        <td width="10%">＃</td>
+
+        <td>21</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">参考書の選択</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">関連する参考書を教育委員会，学校，教員，生徒が選択できる</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func22">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>関連情報</td>
+
+        <td width="10%">＃</td>
+
+        <td>22</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ハイパーリンク</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">教科書外のWeb情報へのリンク</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func23">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>23</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ノートの追加，修正，削除</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">電子教科書本文の特定箇所に，学習者が書き込むことを想定</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+
+            <input type="button" value="ノートを追加" onclick="fn23addnote()" />
+            <div id="fn23area"></div>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>(1) ○<br />
+        (2) ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>(1) ×<br />
+        (2) ×<br /></td>
+
+        <td>(1) 非対応<br />
+        (2) localStorage非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>(1) ×<br />
+        (2) ×<br /></td>
+
+        <td>(1) 非対応<br />
+        (2) localStorage非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>(1) ○<br />
+        (2) ×<br /></td>
+
+        <td>(2) textarea, localStorage非対応<br /></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>(1) ×<br />
+        (2) ○<br /></td>
+
+        <td>(1) 非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>(1) ×<br />
+        (2) ×<br /></td>
+
+        <td>(1) 非対応<br />
+        (2) localStorage非対応</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func24">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>24</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ノートに描画を含める</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">手書きノートを許す．小学校低学年には必要</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">HTML5のCanvasを利用</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+
+            <input type="button" value="ノートを追加" onclick="fn24addnote()" />
+            <div id="fn24area"></div>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>localStorage非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>Canvas非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>Canvas非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>×</td>
+
+        <td>localStorage非対応</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func25">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>25</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ノートウィンドウの移動，リサイズ</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func26">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>26</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ノートの検索</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func27">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>27</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ノートの印刷</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func28">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>28</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">参考文献へのリンクの追加／削除</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func29">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>29</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ブックマークの追加／削除</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">１冊の電子教科書に複数のブックマークを追加するオプション含む</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func30">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>30</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">下線／ハイライトの追加／削除</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">本文へのリンケージ含む</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func31">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>31</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ハイパーリンクの追加／削除</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func32">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>32</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">音声メモの追加／再生／削除</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func33">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>33</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">追加情報一覧の表示</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>ブックマーク ○<br />
+        下線ハイライト ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>ブックマーク ○<br />
+        下線ハイライト ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>ブックマーク ○<br />
+        下線ハイライト ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>下線ハイライト ○<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func34">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習者による情報追加</td>
+
+        <td width="10%">＃</td>
+
+        <td>34</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">追加情報の日時保存／表示</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>ブックマーク ○<br />
+        下線ハイライト ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func35">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援</td>
+
+        <td width="10%">＃</td>
+
+        <td>35</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">サーバへのデータ転送</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">自動／手動のオプション含む</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○(ブラウザ経由)</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○(ブラウザ経由)<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○(ブラウザ経由)<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○(ブラウザ経由)<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func36">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>36</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">学習者に適した画面の構成変更</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">HTML &lt;frame&gt;タグのような複数部分への分割を含む</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">iframe要素をcssで制御して疑似フレームを実現</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+
+            ・CSSで制御<br />
+            <div class="sgc-1" id="headerArea">
+				<input onclick="fn36sizechange(300, 0)" type="button" value="上" /> <input onclick="fn36sizechange(150, 150)" type="button" value="中" /> <input onclick="fn36sizechange(0, 300)" type="button" value="下" />
+			</div>
+
+			<div class="sgc-2" id="fn36cssup">
+				あ<br />い<br />う<br />え<br />お<br />か<br />き<br />く<br />け<br />こ<br />
+			</div>
+
+			<div class="sgc-3" id="fn36cssun">
+				さ<br />し<br />す<br />せ<br />そ<br />た<br />ち<br />つ<br />て<br />と<br />
+			</div>
+
+			<div class="sgc-4" id="footerArea">
+				<input onclick="fn36go('ue', 'Section02')" type="button" value="上に１章" />
+                <input onclick="fn36go('ue', 'Section03')" type="button" value="上に２章" />
+                <input onclick="fn36go('shita', 'Section02')" type="button" value="下に１章" />
+                <input onclick="fn36go('shita', 'Section03')" type="button" value="下に２章" />
+			</div>
+            <input type="button" id="fn36modebutton" value="iframeで制御してみる" onclick="fn36changemode()" />
+            <p id="fn36area"></p>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>(1) ×<br />
+        (2) ○</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>(1) ○<br />
+        (2) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>(1) ×<br />
+        (2) ○<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func37">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>37</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">タブレットPCセンサーの情報利用</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">画面タッチ，加速度，傾き，方位，GPS，カメラ等</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3"><input id="fn37btn1" onclick="fn37senssor()" type="button" value="センサー情報の取得" /><input id="fn37btn2" onclick="fn37senssorremove()" type="button" value="終了" /><br />
+        <span id="fn37span1">緯度・経度の情報を取得します。</span><br />
+        <span id="fn37span2">加速度の情報を取得します。</span><br /></td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>位置情報 ○<br />
+        加速度/傾き情報 ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>位置情報 ○<br />
+        加速度/傾き情報 ×<br /></td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>位置情報 ×<br />
+        加速度/傾き情報 ×<br /></td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>位置情報 ×<br />
+        加速度/傾き情報 ×<br /></td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>位置情報 ○<br />
+        加速度/傾き情報 ×<br /></td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>位置情報 ×<br />
+        加速度/傾き情報 ×<br /></td>
+
+        <td>非対応</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func38">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>38</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">他のアプリケーションへのリンク，起動</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func39">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>39</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">スクリーンイメージキャプチャ</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func40">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>40</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">教科書内容が更新された際の反映</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">自動／手動のオプションは，教員，管理者，学習者が選択可能</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func41">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>41</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">告知用掲示板</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">学校や教員からの告知情報を表示．Web上，プッシュ通信などのオプションがある</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func42">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>42</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">生徒書込用掲示板</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">協調学習やアクティブラーニング用．学習者が書き込み／修正／削除可能</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func43">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>43</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">Q&amp;A掲示板</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func44">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>44</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">時間割の提示</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>(1) ○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>(1) ○<br /></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func45">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>45</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">クイズの自動正誤判定</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">(#11と重複)</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3"><input onclick="tbdisabled()" type="button" value="テキストボックスに書き込む" /><br />
+        Q. 次の計算をしましょう。<br />
+        2 + 3 = <input disabled="disabled" id="fn45tb1" size="5" type="text" /><br />
+        <input id="fn45btn1" onclick="fn45seigohantei()" type="button" value="答え合わせ" /><br />
+        <span id="fn45span1">ここに正誤判定の結果が表示されます。</span><br /></td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>×</td>
+
+        <td>JavaScript非対応</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func46">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>46</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">学習履歴管理</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">教員や学習者が履歴を閲覧</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">LocalStorage, FileSystemAPI, WebSQL, IndexedDataBaseなど</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">
+          <input onclick="fn46check()" type="button" value="どの機能が使えるかチェック" />
+
+          <table>
+            <tr>
+              <td>LocalStorage</td>
+
+              <td><span id="fn46LS">　　　　　　　　　　　　　</span></td>
+            </tr>
+
+            <tr>
+              <td>FileSystemAPI</td>
+
+              <td><span id="fn46FS">　　　　　　　　　　　　　</span></td>
+            </tr>
+
+            <tr>
+              <td>WebSQL</td>
+
+              <td><span id="fn46WSQL">　　　　　　　　　　　　　</span></td>
+            </tr>
+
+            <tr>
+              <td>IndexedDataBase</td>
+
+              <td><span id="fn46IDB">　　　　　　　　　　　　　</span></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func47">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>学習支援<br /></td>
+
+        <td width="10%">＃</td>
+
+        <td>47</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">名簿等のデータベース管理</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>未</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func48">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>コンテンツとプラットフォームの条件</td>
+
+        <td width="10%">＃</td>
+
+        <td>48</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ファイルフォーマット</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">デファクトあるいはデジュール標準である必要がある</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>△</td>
+
+        <td>ePubからmobiやprcに変換が必要</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func49">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>コンテンツとプラットフォームの条件</td>
+
+        <td width="10%">＃</td>
+
+        <td>49</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">サイズと重量</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">使用するノート／タブレットPCは学習者が持ち運びできること</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func50">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>コンテンツとプラットフォームの条件</td>
+
+        <td width="10%">＃</td>
+
+        <td>50</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">バッテリー</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">終日使用に耐えられる容量を持つこと</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func51">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>コンテンツとプラットフォームの条件</td>
+
+        <td width="10%">＃</td>
+
+        <td>51</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ユーザインタフェース</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ユーザが使いやすいインタフェースであること．電源オン／オフなどが簡単に行えること．縦書きサポート(#7と重複)</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>△</td>
+
+        <td>他の端末に比べて、反応が遅い</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="page-break-before: always;">
+    <p><a id="func52">&nbsp;</a></p>
+
+    <table border="1" width="100%">
+      <tr>
+        <td width="10%">カテゴリ</td>
+
+        <td>コンテンツとプラットフォームの条件</td>
+
+        <td width="10%">＃</td>
+
+        <td>52</td>
+      </tr>
+
+      <tr>
+        <td>機能名称</td>
+
+        <td colspan="3">ネットワーク接続</td>
+      </tr>
+
+      <tr>
+        <td>説明</td>
+
+        <td colspan="3">ー</td>
+      </tr>
+
+      <tr>
+        <td>実現方法</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td>実現例</td>
+
+        <td colspan="3">xx</td>
+      </tr>
+
+      <tr>
+        <td rowspan="7">検証結果</td>
+
+        <th>環境</th>
+
+        <th>結果</th>
+
+        <th>原因</th>
+      </tr>
+
+      <tr>
+        <td>iBooks3 (iPad2)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Himawari Reader (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reader by SONY (SONY Tablet S)</td>
+
+        <td>○</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Kindle (Kindle PaperWhite)</td>
+
+        <td>△</td>
+
+        <td>インターネットは制限あり<br />
+        反応も遅い</td>
+      </tr>
+
+      <tr>
+        <td>Readium (Chrome add-on)</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+
+      <tr>
+        <td>Calibre</td>
+
+        <td>-</td>
+
+        <td>PCでのみ動作</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>&nbsp; コメント</p>
+
+  <dl>
+    <dt><a id="comment01">ePubにおける一時データの保存方法の選択肢と比較</a><br /></dt>
+
+    <dd>
+      <ol>
+        <li>FileSystemAPI ：ファイル操作をする仕組みです。ファイルを読み込んだり、新しくテキストファイルを作成したりすることが出来ます。OS内のファイルを直接やりとりすることは不可能なため、ブラウザ内のLocalStorageの領域を使ってファイル操作を行っているようです。これを利用して”電子教科書名.txt”というテキストファイルを作成し、学習情報を保存していくという考えです。保存するファイル名を”電子教科書名.txt”としているのは、”log.txt”といった共通の名称にすると、複数の電子教科書で保存する情報が競合してしまうためです。競合を防ぐ別の解決策としてはFileSystemAPIのファイル操作で電子教科書ごとにディレクトリを作成し、その下に”log.txt”を置くという方法があります。 　Google Chromeアドオンの電子書籍リーダー(Readium)を用いて、ePubからtxtファイルの保存ができることを実装で確認しました。このtxtファイルを読み出し、新たに情報を追加できることも確認済みです。また、未確認ですが文書ファイル以外（画像など）も保存できると考えられ、有効利用できないか検討中です。 問題点は、FileSystemAPIがGoogle Chromeでしか動作しないことです。そのため、Readiumでしか利用出来ず、汎用性のある仕組みとは言えません。また今後、この仕組みがなくなる可能性も十分に考えられます。</li>
+
+        <li>&nbsp;LocalStorage 　ブラウザ（電子書籍リーダー）内に情報を保存する仕組みです。多くのブラウザで利用可能です。FileSystemAPIでも使っていたこのLocalStorageに直接、情報を保存した方が汎用性のある仕組みになりそうです。FileSystemAPIのようなディレクトリ操作は出来ないものの、電子教科書ごとに別の領域で保存されるため、同じキーを使っても別の電子教科書と競合しません（iBooksで確認）。 　問題点は、保存する情報量が多くなると読み書きにかかる時間も増加し、操作性が悪化する可能性があることです。LocalStorageはディレクトリ操作が出来ず、全ての情報を同じ階層に保存しています。そのため、保存する情報が多いと、情報を取り出すのに多大な時間がかかることが懸念されます。</li>
+
+        <li>&nbsp;WebSQL 　LocalStorageと同様、情報をブラウザ（電子書籍リーダー）内に保存する仕組みです。SQLiteベースのSQLによってデータにアクセスします。これを利用することで、情報をデータベースで電子教科書ごとに管理することができ、保存する情報量が増えても、読み書きの操作がLocalStorageより早くなると予想しています。 　問題点は、WebSQLがW3Cの定めるHTML5の仕様から廃止されていることです。WebSQLではなく、次に示すIndexed Database APIを使用することが推奨されています。&nbsp;</li>
+
+        <li>Indexed Database API 　LocalStorageと同様、情報をブラウザ（電子書籍リーダー）内に保存する仕組みです。WebSQLと異なり、Indexed Database APIはSQLに依存しないNoSQLによってデータにアクセスします。これを利用することで、WebSQLと同様に情報をデータベースで電子教科書ごとに管理できるようになると考えています。問題点は、非常に新しい仕組みでまだ仕様が確定しておらず、各ブラウザがサポートしている確証がないということです。 　以上の4方法で検討を進めており、現状では1. FileSystemAPIを用いて作成した”log.txt”ファイルの読み書きが出来ることをReadium（Google Chromeアドオンの電子書籍リーダー）で確認した段階です。<br /></li>
+      </ol>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>xx</dt>
+
+    <dd>xx</dd>
+  </dl>
+
+  <dl>
+    <dt>xx</dt>
+
+    <dd>xx</dd>
+  </dl>
+
+  <dl>
+    <dt>xx</dt>
+
+    <dd>xx</dd>
+  </dl>
+</body>
+</html>

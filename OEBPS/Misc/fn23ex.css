@@ -1,0 +1,44 @@
+.modalbox {
+    display:none;
+    position:relative;
+    z-index:10;
+    width:300px;
+    padding:20px;
+    background:#fcc;
+    border:5px solid #ebb;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+}
+
+.fn23editarea {
+    width:290px;
+    max-width:290px;
+}
+
+.fn23editbutton {
+    position:absolute;
+    top:0px;
+}
+
+.fn23deletebutton {
+    position:absolute;
+    top:0px;
+    left:80px;
+}
+
+.fn23open {
+    display:none;
+    color:red;
+}
+
+.fn23close {
+    line-height:1;
+
+    position:absolute;
+    top:10px;
+    right:10px;
+    color:red;
+    text-decoration:none;
+}​
+
