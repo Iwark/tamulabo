@@ -9,7 +9,6 @@
   <script src="../Misc/http_test.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/js1.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/js2.js" charset="utf-8" type="text/javascript"></script>
-  <script src="../Misc/js4.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/prototype.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/jquery-1.9.1.js" charset="utf-8" type="text/javascript"></script>
   <link rel="stylesheet" href="../Misc/fn23ex.css" type="text/css"></link>
@@ -2493,8 +2492,13 @@
 
         <td colspan="3">
 
-            <input type="button" value="ノートを追加" onclick="fn24addnote()" />
-            <div id="fn24area"></div>
+            <a href='#func24' id='fn24open' style='display:none' onclick='fn24openevent()'>メモ表示</a>
+			<div id='modalbox' style='width:300px; background:#fcc; border:5px solid #ebb; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;' >
+				<input type='button' value='描く'  id='fn24editbutton' onclick='fn24init()' />
+				<input type='button' value='クリア'  id='fn24clearbutton' onclick='fn24clear()' />
+				<a href='#func24' class='fn23close' onclick='fn24closeevent()'>隠す</a>
+				<canvas id='fn24canvas' width='280' height='180'></canvas>
+			</div><br />
 
         </td>
       </tr>
