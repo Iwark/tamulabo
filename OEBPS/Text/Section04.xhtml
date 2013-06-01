@@ -11,6 +11,8 @@
   <script src="../Misc/js2.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/prototype.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/jquery-1.9.1.js" charset="utf-8" type="text/javascript"></script>
+<script src="../Misc/jquery.ui.touch-punch.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/jquery-ui-1.10.3.custom.js" charset="utf-8" type="text/javascript"></script>
   <link rel="stylesheet" href="../Misc/fn23ex.css" type="text/css"></link>
   <link rel="stylesheet" href="../Misc/fn36.css" type="text/css"></link>
 </head>
@@ -2372,7 +2374,7 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">div要素をcssとjavascriptで制御してメモ風に</td>
       </tr>
 
       <tr>
@@ -2484,7 +2486,7 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">HTML5のCanvasを利用</td>
+        <td colspan="3">HTML5のCanvasを利用。いずれはfn23のように複数表示できるようにしたい。</td>
       </tr>
 
       <tr>
@@ -2496,7 +2498,6 @@
 			<div id='modalbox' style='width:300px; background:#fcc; border:5px solid #ebb; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;' >
 				<input type='button' value='描く'  id='fn24editbutton' onclick='fn24init()' />
 				<input type='button' value='クリア'  id='fn24clearbutton' onclick='fn24clear()' />
-				<a href='#func24' class='fn23close' onclick='fn24closeevent()'>隠す</a>
 				<canvas id='fn24canvas' width='280' height='180'></canvas>
 			</div><br />
 
@@ -2592,13 +2593,23 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">jQueryのdraggableを使ってドラッグでメモを移動可能に。サイズ変更はjavascriptを使用。</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+		
+		<a href='#func25' id='fn25open' style='display:none; position:absolute;' onclick='fn25openevent()'>メモ表示</a>
+			<div id='fn25modalbox' style='width:300px; background:#fcc; border:5px solid #ebb; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;' >
+				<input type='button' value='移動'  id='fn25movebutton' onclick='fn25move()' />
+				横幅：<input type='button' value='小' onclick='fn25resize(150)' /><input type='button' value='中' onclick='fn25resize(300)' /><input type='button' value='大' onclick='fn25resize(500)' />
+				<a href='#func25' onclick='fn25closeevent()'>隠す</a>
+				<div id='fn25textarea'>移動可能なノートです。<br />ドラッグすることでノートが移動します。「移動」ボタンを押してください。</div>
+			</div> 
+		
+	</td>
       </tr>
 
       <tr>

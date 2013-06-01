@@ -161,6 +161,44 @@ function fn24openevent(num){
     $("#modalbox"+num).fadeIn(500);
 }
 
+/* ------------fn25------------ */
+
+//閉じる
+function fn25closeevent(){
+	var ele = document.getElementById("fn25modalbox");
+	var rect = ele.getBoundingClientRect();
+	var x = rect.left;
+	var y = rect.top;
+	var sx = window.pageXOffset;
+	var sy = window.pageYOffset;
+    $("#fn25modalbox").fadeOut(500);
+    document.getElementById("fn25open").style.display = "";
+    document.getElementById("fn25open").style.left = (x+sx)+"px";
+    document.getElementById("fn25open").style.top = (y+sy)+"px";
+    //alert("x:"+x+", y:"+y+", sx:"+sx+", sy:"+sy);
+}
+
+//開ける
+function fn25openevent(){
+    document.getElementById("fn25open").style.display = "none";
+    $("#fn25modalbox").fadeIn(500);
+}
+
+//移動する
+function fn25move(){
+	document.getElementById("fn25textarea").innerHTML = "移動可能なノートです。<br />現在ドラッグで移動可能な状態です。";
+	/*
+	var fn25 = document.getElementById("fn25movebutton");
+    fn25.value = "移動終了";
+    fn25.onclick = new Function("fn25movened();");
+    */
+    $("#fn25modalbox").draggable();
+}
+
+function fn25resize(size){
+	document.getElementById("fn25modalbox").style.width = size + "px";
+}
+
 
 /* ------------fn36------------ */
 var fn36flg = true;
