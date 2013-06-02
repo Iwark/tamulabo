@@ -1,0 +1,148 @@
+#stepWrap{
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    perspective: 0;
+    -webkit-perspective: 0;
+    -moz-perspective: 0px;
+}
+#stepWrap div{
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	color: #fff;
+	word-wrap: break-word;
+	width: 199px;
+	height: 200px;
+}
+
+/*------ 立方体の設定 ------*/
+#stepWrap .front{
+    transform: translateZ(100px);
+    -webkit-transform: translateZ(100px);
+    -moz-transform: translateZ(100px);
+	  background: #5cdfa1;
+}
+
+#stepWrap .back{
+    transform: rotate(-90deg) rotateY(180deg) translateZ(100px);
+    -webkit-transform: rotate(-90deg) rotateY(180deg) translateZ(100px);
+    -moz-transform: rotate(-90deg) rotateY(180deg) translateZ(100px);
+	background: #b3c6e2;
+}
+
+#stepWrap .top{
+    transform: rotateX(90deg) translateZ(100px);
+    -webkit-transform: rotateX(90deg) translateZ(100px);
+    -moz-transform: rotateX(90deg) translateZ(100px);
+	background: #7d7e1d;
+}
+
+#stepWrap .bottom{
+    transform: rotateX(-90deg) translateZ(100px);
+    -webkit-transform: rotateX(-90deg) translateZ(100px);
+    -moz-transform: rotateX(-90deg) translateZ(100px);
+	background: red;
+}
+
+#stepWrap .left{
+    transform: rotateX(90deg) rotateY(90deg) translateZ(100px);
+    -webkit-transform: rotateX(90deg) rotateY(90deg) translateZ(100px);
+    -moz-transform: rotateX(90deg) rotateY(90deg) translateZ(100px);
+	background: pink;
+}
+
+#stepWrap .right{
+    transform : rotateY(-90deg) translateZ(100px);
+    -webkit-transform : rotateY(-90deg) translateZ(100px);
+    -moz-transform : rotateY(-90deg) translateZ(100px);
+	background: #5f5a8c;
+}
+
+
+/*------ アニメーション設定 ------
+#stepWrap.animation{
+    -webkit-animation:
+	boxAnimation-1 2.4s ease-in-out 0s 1 normal forwards;
+    -moz-animation:
+	boxAnimation-1 2.4s ease-in-out 0s 1 normal forwards;
+}
+
+@-webkit-keyframes boxAnimation-1{
+    from{
+
+    }
+    33%{
+	-webkit-transform: rotateX(-90deg);
+    }
+    66%{
+	-webkit-transform: rotateX(-90deg) rotateZ(-90deg);
+    }
+    to{
+	-webkit-transform: rotateX(-180deg) rotateZ(-90deg);
+    }
+}
+
+@-moz-keyframes boxAnimation-1{
+    from{
+
+    }
+    33%{
+	-moz-transform: rotateX(-90deg);                
+    }
+    66%{
+	-moz-transform: rotateX(-90deg) rotateZ(-90deg);                
+    }
+    to{
+	-moz-transform: rotateX(-180deg) rotateZ(-90deg);
+    }
+}
+*/
+#stepWrap.rolling{
+    -webkit-animation:
+	roll 8s ease-in-out 0s 1 normal both,
+	rollReverse 8s ease-in-out 0s 1 normal both;
+    -moz-animation:
+	roll 8s ease-in-out 0s 1 normal both,
+	rollReverse 8s ease-in-out 0s 1 normal both;
+}
+
+@-webkit-keyframes roll{
+    from{
+
+    }
+    to{
+	-webkit-transform: rotateX(-360deg) rotateY(-270deg);
+    }
+}
+
+@-moz-keyframes roll{
+    from{
+
+    }
+    to{
+	-moz-transform: rotateX(-360deg) rotateY(-270deg);
+    }
+}
+
+@-webkit-keyframes rollReverse{
+    from{
+
+    }
+    to{
+	-webkit-transform: rotateX(-360deg) rotateY(-270deg);
+    }
+}
+
+@-moz-keyframes rollReverse{
+    from{
+
+    }
+    to{
+	-moz-transform: rotateX(-360deg) rotateY(-270deg);
+    }
+}

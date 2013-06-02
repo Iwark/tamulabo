@@ -1,0 +1,9 @@
+ div.tate {
+    writing-mode: vertical-rl;
+    -webkit-writing-mode: vertical-rl;
+        text-combine-horizontal: all;
+        word-break: keep-all;
+        line-break: strict;
+        margin-left:auto;
+        }
+

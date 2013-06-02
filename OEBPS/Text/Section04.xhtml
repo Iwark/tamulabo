@@ -5,17 +5,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title></title>
-
   <script src="../Misc/http_test.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/js1.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/js2.js" charset="utf-8" type="text/javascript"></script>
+  <script src="../Misc/js4.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/prototype.js" charset="utf-8" type="text/javascript"></script>
   <script src="../Misc/jquery-1.9.1.js" charset="utf-8" type="text/javascript"></script>
-<script src="../Misc/jquery.ui.touch-punch.js" charset="utf-8" type="text/javascript"></script>
-  <script src="../Misc/jquery-ui-1.10.3.custom.js" charset="utf-8" type="text/javascript"></script>
+   <script src="../Misc/3d1.js" charset="utf-8" type="text/javascript"></script>
+   <script type="text/javascript" src="../Misc/Three.js"></script>
+   <script type="text/javascript" src="../Misc/Plane.js"></script>
+   <script type="text/javascript" src="../Misc/canvasp5.js"></script>
   <link rel="stylesheet" href="../Misc/fn23ex.css" type="text/css"></link>
   <link rel="stylesheet" href="../Misc/fn36.css" type="text/css"></link>
-</head>
+  <link rel="stylesheet" href="../Misc/3d1.css" type="text/css"></link>
+  <link rel="stylesheet" href="../Misc/texthyouji.css" type="text/css"></link>
+  </head>
 
 <body>
   <h1>第３章 電子教科書の典型的な機能５２項目の解説</h1>
@@ -260,22 +264,8 @@
 
       <tr>
         <td>実現例</td>
-        <td colspan="3">
-          <p>※テスト用アカウント Name: test  Password: test</p>
-          <div id="read">
-            あなたは、まだログインしていません
-          </div>
-          <p><button onclick="able();">フォームの有効化</button></p>
-          <form>
-            <div>
-              <label for="name">Name</label> <input id="login_name" name="name" type="text" />
-            </div>
-            <div>
-              <label for="password">Password</label> <input id="login_password" name="password" type="password" />
-            </div>
-          </form>
-          <p><button onclick="http_test.login('sessions','POST');">Sign In</button></p>
-        </td>
+
+        <td colspan="3">xx</td>
       </tr>
 
       <tr>
@@ -763,7 +753,7 @@
           <ul>
             <li>縦書き：CSSを用いる． -webkit-writing-mode: vertical-rl;</li>
 
-            <li>右綴じ：content.opfで，各ページの順番を設定する&lt;spine&gt; に，page-progression-direction="rtl" (rtlは”right to left”を意味する)を加える．</li>
+            <li>右綴じ：content.opfの各ページの順番を設定する&lt;spine&gt; に，page-progression-direction="rtl" (rtlは”right to left”を意味する)を加える．</li>
 
             <li>ルビ表示：HTMLタグの&lt;ruby&gt;を用いる．</li>
 
@@ -775,7 +765,24 @@
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+        <ul>
+        <li>縦書き</li>
+         <div class="tate">
+    どの文字が禁則処理されるのかをテストしてみます。ブラウザの幅や文字サイズ を調整することで、禁則処理が行われているかチェックできます。全角（カッコ）のテスト、半角(カッコ)のテスト。次に「このカッコ」のテスト。ちぃさぃ文字のテストと、のばーーーすテスト。半角!と全角！のビックリマーク。次に"半角"と”全角”のダブルクォーテーション。云々とか我々とかの小さい「々」のテスト。例えば…とか・・・のテスト。最後に\5,000とか￥５，０００とか100%とか１００％のテスト。  
+  </div>
+  
+  <li>ルビ表示</li>
+  <dl>
+  <dt>親文字の一文字ごとに対応したルビ（モノルビ）</dt>
+    <dd><ruby>平<rt>ひら</rt>仮<rt>が</rt>名<rt>な</rt></ruby>
+  <ruby>漢<rt>かん</rt>字<rt>じ</rt></ruby></dd>
+  <dt>二文字以上の親文字列にまとめてルビ（グループルビ）</dt>
+    <dd><ruby>平仮名<rt>ひらがな</rt></ruby>
+  <ruby>漢字<rt>かんじ</rt></ruby></dd>
+</dl>
+  </ul>
+        </td>
       </tr>
 
       <tr>
@@ -872,8 +879,46 @@
 
       <tr>
         <td>実現例</td>
+        <br />
+        <td colspan="3">
+          <table border="4" width="250">
+    <tr class="sgc-1">
+      <th>表例</th>
 
-        <td colspan="3">xx</td>
+      <th>列-A</th>
+
+      <th>列-B</th>
+
+      <th>列-C</th>
+    </tr>
+
+    <tr align="center">
+      <td>行-1</td>
+
+      <td>A1</td>
+
+      <td>B1</td>
+
+      <td rowspan="2">C1-C2</td>
+    </tr>
+
+    <tr align="center">
+      <td>行-2</td>
+
+      <td>A2</td>
+
+      <td>B2</td>
+    </tr>
+
+    <tr align="center">
+      <td>行-3</td>
+
+      <td>A3</td>
+
+      <td colspan="2">A3-B3</td>
+    </tr>
+  </table>
+        </td>
       </tr>
 
       <tr>
@@ -934,6 +979,7 @@
         <td></td>
       </tr>
     </table>
+    <br />
   </div>
 
   <div style="page-break-before: always;">
@@ -979,7 +1025,49 @@
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+        <h1>画像</h1>
+        <ul>
+        <li>jpg <img alt="" height="100" src="../Misc/sample.jpg" width="100" /></li>
+        <li>png <img alt="" height="100" src="../Misc/sample.png" width="100" /></li>
+        <li>bmp <img alt="" height="100" src="../Misc/sample.bmp" width="100" /></li>
+        <li>tiff <img alt="" height="100" src="../Misc/sample.tiff" width="100" /></li>
+        </ul>
+        
+        <h1>動画</h1>
+        <ul>
+		<li>mp4</li>
+		<video src="../Misc/sample.mp4" type="Misc/mp4" width="180" height="140" controls="controls">
+		</video>
+		<li>mpg</li>
+		<video src="../Misc/sample.mpg" type="Misc/mpg" width="180" height="140" controls="controls">
+		</video>
+		<li>mov</li>
+		<video src="../Misc/sample.mov" type="Misc/mov" width="180" height="140" controls="controls">
+		</video>
+		</ul>
+        
+        <h1>3D</h1>
+        <ul>
+        <li>レンダリングエンジン</li>
+        <div id="stepWrap" style="text-align:center;">
+        <div class="right" style="text-align:center;"><p>6</p></div>
+        <div class="left" style="text-align:center;"><p>3</p></div>
+        <div class="bottom" style="text-align:center;"><p>5</p></div>
+        <div class="top" style="text-align:center;"><p>2</p></div>
+        <div class="back" style="text-align:center;"><p>4</p></div>
+        <div class="front" style="text-align:center;"><p>1</p></div>
+   		</div>
+        <br/>
+    <input type="button" id="rolling" value="回転させる" />
+     <br/>
+        <li>Canvas</li>
+        <div id="container"></div>
+        <script type="text/javascript" src="../Misc/3d.js"></script>
+        </ul>
+        
+
+        </td>
       </tr>
 
       <tr>
@@ -1089,7 +1177,35 @@
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+        <ul>
+<li>mp3</li>
+<audio controls="mp3">
+  <source src="../Misc/sample.mp3" type="audio/mp3">
+</source>
+</audio>
+<li>aac</li>
+<audio controls="m4a">
+  <source src="../Misc/sample.m4a" type="audio/aac">
+</source>
+</audio>
+<li>wma</li>
+<audio controls="wma">
+  <source src="../Misc/sample.wma" type="audio/wma" >
+</source>
+</audio>
+<li>wav</li>
+<audio controls="wav">
+  <source src="../Misc/sample.wav" type="audio/wav" >
+</source>
+</audio>
+<li>ogg</li>
+<audio controls="ogg">
+  <source src="../Misc/sample.ogg" type="audio/ogg" >
+</source>
+</audio>
+</ul>
+        </td>
       </tr>
 
       <tr>
@@ -1487,13 +1603,28 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">ハイパーリンクを用いる．脚注の本文をページ下部に表示させるとすると、実現方法は今後要検討。</td>
+        <td colspan="3">例文の中の特定の言葉の意味を、ハイパーリンクやポップアップで脚注表示する</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+       
+         <ul>
+        <li>ハイパーリンクと画面分割</li>
+        &lt;例文&gt;<br />
+        言語依存のテキスト表示とは、日本語の禁則処理<a href="../Misc/kyakuchu.htm#note1" style="text-decoration: none"><sup id="ref1" class="reference"><font size="-1">[1]</font></sup></a>の表示や
+        縦書き<a href="../Misc/kyakuchu.htm#note2" style="text-decoration: none"><sup class="reference" id="ref2"><font size="-1">[2]</font></sup></a>表示、さらにはルビ<a href="../Misc/kyakuchu.htm#note3" style="text-decoration: none"><sup class="reference" id="ref3"><font size="-1">[3]</font></sup></a>表示のことを指す。<br />
+        <iframe src="../Misc/kyakuchu.htm" width="300" height="150"></iframe>
+        <li>ポップアップ</li>
+        <form>
+&lt;例文&gt;<br />
+        言語依存のテキスト表示とは、日本語の<input type="button" value="禁則処理" onClick="alert('禁則処理とは、約物などが行頭・行末などにあってはならないという禁止事項のこと')"></input>の表示や<input type="button" value="縦書き表示" onClick="alert('ePub3.0で対応')"></input>、さらには<input type="button" value="ルビ表示" onClick="alert('文章内の任意の文字に対しふりがな／説明／異なる読み方といった役割の文字をより小さな文字で、通常縦書きの際は文字の右側／横書きの際は文字の上側に記されるもの')"></input>のことを指す。
+</form> 
+        </ul>
+        
+        </td>
       </tr>
 
       <tr>
@@ -2373,7 +2504,7 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">div要素をcssとjavascriptで制御してメモ風に</td>
+        <td colspan="3">xx</td>
       </tr>
 
       <tr>
@@ -2485,7 +2616,7 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">HTML5のCanvasを利用。いずれはfn23のように複数表示できるようにしたい。</td>
+        <td colspan="3">HTML5のCanvasを利用</td>
       </tr>
 
       <tr>
@@ -2493,12 +2624,8 @@
 
         <td colspan="3">
 
-            <a href='#func24' id='fn24open' style='display:none' onclick='fn24openevent()'>メモ表示</a>
-			<div id='modalbox' style='width:300px; background:#fcc; border:5px solid #ebb; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;' >
-				<input type='button' value='描く'  id='fn24editbutton' onclick='fn24init()' />
-				<input type='button' value='クリア'  id='fn24clearbutton' onclick='fn24clear()' />
-				<canvas id='fn24canvas' width='280' height='180'></canvas>
-			</div><br />
+            <input type="button" value="ノートを追加" onclick="fn24addnote()" />
+            <div id="fn24area"></div>
 
         </td>
       </tr>
@@ -2592,23 +2719,13 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">jQueryのdraggableを使ってドラッグでメモを移動可能に。サイズ変更はjavascriptを使用。</td>
+        <td colspan="3">xx</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">
-		
-		<a href='#func25' id='fn25open' style='display:none; position:absolute;' onclick='fn25openevent()'>メモ表示</a>
-			<div id='fn25modalbox' style='width:300px; background:#fcc; border:5px solid #ebb; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;' >
-				<input type='button' value='移動'  id='fn25movebutton' onclick='fn25move()' />
-				横幅：<input type='button' value='小' onclick='fn25resize(150)' /><input type='button' value='中' onclick='fn25resize(300)' /><input type='button' value='大' onclick='fn25resize(500)' />
-				<a href='#func25' onclick='fn25closeevent()'>隠す</a>
-				<div id='fn25textarea'>移動可能なノートです。<br />ドラッグすることでノートが移動します。「移動」ボタンを押してください。</div>
-			</div> 
-		
-	</td>
+        <td colspan="3">xx</td>
       </tr>
 
       <tr>
@@ -3092,18 +3209,13 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">選択範囲をJavaScriptで取得し、その領域を一度消して、同じ文字列の両端に背景色をつけるタグを付加して再現する。問題点は、選択範囲内のタグを消してしまうこと。</td>
+        <td colspan="3">xx</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">
-		<p>　コンピュータが一般に利用されはじめたのは、1960年代である(図1)。1964年IBMがシステム360を発表し、これがのちに汎用大型機（メインフレーム）のデファクトスタンダードとなった。このメインフレームは1台数億円という価格であり、これを何十人もの人が共有して使っていた。ユーザがコンピュータを操作するには、キーボードでコマンド（指示）をタイプする必要があった。ディスプレイはブラウン管であり(初期のメインフレームはディスプレイもなく、全てのやり取りをタイプライターで紙に印刷していた)、表示されるものは文字のみ。今から考えると、とてつもなく高価で、使い勝手も悪いが、多くの企業がこれを導入し、事務処理や科学技術計算に利用していた。</p>
-
-  <p>　1970年代後半になると、いわゆるパソコン、すなわち個人で使える程度の価格や大きさのコンピュータが発売されはじめた。1977年にはAppleがApple II、1979年にはNECがPC-8000、1981年にはIBMがIBMPCを発表した。Apple以外のパソコンではMicrosoftのMS-DOSというOS(オヘ?レーティンク?システム)が動き、IntelのCPUが搭載された。Windowsパソコンにおけるこの2社の寡占状態は、いまだに続いている。これらのパソコンを使うには、それ以前のメインフレームと同じくコマンドをタイプする必要があり、ある程度の予備知識が必要であった。このため、興味を持つ一部のユーザのみが使う、といった色彩が強かった。こういった、コマンドをタイプする使い方を、ここでは第一世代のインタフェースと呼ぼう。</p>
-<input type="button" value="選択部分に下線を引く" onclick="fn30sentaku()" /><br />
-	</td>
+        <td colspan="3">xx</td>
       </tr>
 
       <tr>
@@ -4312,13 +4424,29 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">GETメソッドを用いてサーバへの書込みを行う</td>
       </tr>
 
       <tr>
         <td>実現例</td>
+        <td colspan="3">
+        <h1>サーバへの書き込み</h1>
+      <form action="http://be-sp.com/imipu/kakikomix.php" method="get">
+        <dl>
+          <dt><label for="my_name">お名前：</label></dt>
 
-        <td colspan="3">xx</td>
+          <dd><input id="my_name" maxlength="255" name="my_name" size="35" type="text" value="" /></dd>
+
+          <dt><label for="message">メッセージ：</label></dt>
+
+          <dd><input id="message" maxlength="255" name="message" size="35" type="text" value="" /></dd>
+        </dl><input type="submit" value="送信する" />
+      </form>
+  <form>
+    <input onclick="tbgo()" type="button" value="テキストボックス" /> <input onclick="m1()" type="button" value="" /><br />
+    <span id="k1"></span><br />
+  </form>
+        </td>
       </tr>
 
       <tr>
@@ -4410,13 +4538,15 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">GETメソッドを用いてサーバへの書込みを行う</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+        
+        </td>
       </tr>
 
       <tr>
@@ -4508,13 +4638,84 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">GETメソッドを用いてサーバへの書込みを行う</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+        <h1>時間割を登録</h1>
+<input type="button" value="テキストボックスに書き込む" onclick="clear()" /><br /><br />
+<table border="7" width="450" height="300">
+    <tr class="sgc-1">
+      <th bgcolor="white"></th>
+      <th>　月　</th>
+      <th>　火　</th>
+      <th>　水　</th>
+      <th>　木　</th>
+      <th>　金　</th>
+    </tr>
+
+    <tr class="sgc-2" align="center">
+      <td>1限</td>
+      <td><input id="月1" type="text" size="5"/></td>
+      <td><input id="火1" type="text" size="5"/></td>
+      <td><input id="水1" type="text" size="5"/></td>
+      <td><input id="木1" type="text" size="5"/></td>
+      <td><input id="金1" type="text" size="5"/></td>
+    </tr>
+
+    <tr class="sgc-2" align="center">
+      <td>2限</td>
+      <td><input id="月2" type="text" size="5"/></td>
+      <td><input id="火2" type="text" size="5"/></td>
+      <td><input id="水2" type="text" size="5"/></td>
+      <td><input id="木2" type="text" size="5"/></td>
+      <td><input id="金2" type="text" size="5"/></td>
+    </tr>
+
+    <tr class="sgc-2" align="center">
+      <td>3限</td>
+      <td><input id="月3" type="text" size="5"/></td>
+      <td><input id="火3" type="text" size="5"/></td>
+      <td><input id="水3" type="text" size="5"/></td>
+      <td><input id="木3" type="text" size="5"/></td>
+      <td><input id="金3" type="text" size="5"/></td>
+    </tr>
+
+    <tr class="sgc-2" align="center">
+      <td>4限</td>
+      <td><input id="月4" type="text" size="5"/></td>
+      <td><input id="火4" type="text" size="5"/></td>
+      <td><input id="水4" type="text" size="5"/></td>
+      <td><input id="木4" type="text" size="5"/></td>
+      <td><input id="金4" type="text" size="5"/></td>
+    </tr>
+    
+    <tr class="sgc-2" align="center">
+      <td>5限</td>
+      <td><input id="月5" type="text" size="5"/></td>
+      <td><input id="火5" type="text" size="5"/></td>
+      <td><input id="水5" type="text" size="5"/></td>
+      <td><input id="木5" type="text" size="5"/></td>
+      <td><input id="金5" type="text" size="5"/></td>
+    </tr>
+    
+    <tr class="sgc-2" align="center">
+      <td>6限</td>
+      <td><input id="月6" type="text" size="5"/></td>
+      <td><input id="火6" type="text" size="5"/></td>
+      <td><input id="水6" type="text" size="5"/></td>
+      <td><input id="木6" type="text" size="5"/></td>
+      <td><input id="金6" type="text" size="5"/></td>
+    </tr>                    
+</table>
+<br />
+  <form>
+    <input onclick="" type="button" value="データを転送（設定未定）" /><br />
+  </form>
+        </td>
       </tr>
 
       <tr>
