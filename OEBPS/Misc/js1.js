@@ -200,6 +200,36 @@ function fn25resize(size){
 }
 
 
+/* ------------fn30------------ */
+var fn30num = 0;
+function fn30sentaku(){
+
+var text = window.getSelection();	//選択範囲の文字列を取得？
+var span = document.createElement("span");
+//span.innerHTML = "<font color=\"red\">"+text+"</font>";
+span.innerHTML = text;
+span.style.background = "red";
+span.id = "sp"+fn30num;
+var range = text.getRangeAt(0);		//Documentの一部、最初（0番目）の選択範囲を選択
+range.deleteContents();			//選択範囲の内容を消す
+
+var container = range.startContainer;
+var offset = range.startOffset;
+
+ switch (container.nodeType) {
+  case 1:
+    // Element node
+    container.insertBefore(span, container.childNodes[offset]);
+    break;
+  case 3:
+    //Text node
+	var node = container.splitText(offset);
+	node.parentNode.insertBefore(span, node);
+	break;
+ }
+ 
+}
+
 /* ------------fn36------------ */
 var fn36flg = true;
 function fn36changemode(){
