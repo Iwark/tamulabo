@@ -259,13 +259,31 @@
       <tr>
         <td>実現方法</td>
 
-        <td colspan="3">フォームに入力した情報を，GETメソッドを使いSafari経由で認証．一度入力した認証情報をCookieに登録しておくことで，次回以降の入力は省略できる．</td>
+        <td colspan="3">フォームに入力した情報を，POSTメソッドを使って認証する。</td>
       </tr>
 
       <tr>
         <td>実現例</td>
 
-        <td colspan="3">xx</td>
+        <td colspan="3">
+          <div id="read">まだログインしていません。</div>
+          <p><button onclick="able();">フォームの有効化</button></p>
+
+  <form>
+    <div>
+      <label for="name">Name</label>
+      <input id="login_name" name="name" type="text" value="test" />
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input id="login_password" name="password" type="password" value="test" />
+    </div>
+  </form>
+
+  <p><button onclick="http_test.login('sessions','POST');">ログイン</button></p>
+
+        </td>
       </tr>
 
       <tr>
@@ -769,9 +787,9 @@
         <ul>
         <li>縦書き</li>
          <div class="tate">
-    どの文字が禁則処理されるのかをテストしてみます。ブラウザの幅や文字サイズ を調整することで、禁則処理が行われているかチェックできます。全角（カッコ）のテスト、半角(カッコ)のテスト。次に「このカッコ」のテスト。ちぃさぃ文字のテストと、のばーーーすテスト。半角!と全角！のビックリマーク。次に"半角"と”全角”のダブルクォーテーション。云々とか我々とかの小さい「々」のテスト。例えば…とか・・・のテスト。最後に\5,000とか￥５，０００とか100%とか１００％のテスト。  
+    どの文字が禁則処理されるのかをテストしてみます。ブラウザの幅や文字サイズ を調整することで、禁則処理が行われているかチェックできます。全角（カッコ）のテスト、半角(カッコ)のテスト。次に「このカッコ」のテスト。ちぃさぃ文字のテストと、のばーーーすテスト。半角!と全角！のビックリマーク。次に"半角"と”全角”のダブルクォーテーション。云々とか我々とかの小さい「々」のテスト。例えば…とか・・・のテスト。最後に\5,000とか￥５，０００とか100%とか１００％のテスト。
   </div>
-  
+
   <li>ルビ表示</li>
   <dl>
   <dt>親文字の一文字ごとに対応したルビ（モノルビ）</dt>
@@ -1033,7 +1051,7 @@
         <li>bmp <img alt="" height="100" src="../Misc/sample.bmp" width="100" /></li>
         <li>tiff <img alt="" height="100" src="../Misc/sample.tiff" width="100" /></li>
         </ul>
-        
+
         <h1>動画</h1>
         <ul>
 		<li>mp4</li>
@@ -1046,7 +1064,7 @@
 		<video src="../Misc/sample.mov" type="Misc/mov" width="180" height="140" controls="controls">
 		</video>
 		</ul>
-        
+
         <h1>3D</h1>
         <ul>
         <li>レンダリングエンジン</li>
@@ -1065,7 +1083,7 @@
         <div id="container"></div>
         <script type="text/javascript" src="../Misc/3d.js"></script>
         </ul>
-        
+
 
         </td>
       </tr>
@@ -1610,7 +1628,7 @@
         <td>実現例</td>
 
         <td colspan="3">
-       
+
          <ul>
         <li>ハイパーリンクと画面分割</li>
         &lt;例文&gt;<br />
@@ -1621,9 +1639,9 @@
         <form>
 &lt;例文&gt;<br />
         言語依存のテキスト表示とは、日本語の<input type="button" value="禁則処理" onClick="alert('禁則処理とは、約物などが行頭・行末などにあってはならないという禁止事項のこと')"></input>の表示や<input type="button" value="縦書き表示" onClick="alert('ePub3.0で対応')"></input>、さらには<input type="button" value="ルビ表示" onClick="alert('文章内の任意の文字に対しふりがな／説明／異なる読み方といった役割の文字をより小さな文字で、通常縦書きの際は文字の右側／横書きの際は文字の上側に記されるもの')"></input>のことを指す。
-</form> 
+</form>
         </ul>
-        
+
         </td>
       </tr>
 
@@ -4546,10 +4564,10 @@
         <ul>
         <li>k</li>
         <li><a href="http://6236.teacup.com/qakeijiban/bbs">Q&amp;A掲示板</a></li>
-        
+
         </ul>
         <td colspan="3">
-        
+
         </td>
       </tr>
 
@@ -4696,7 +4714,7 @@
       <td><input id="木4" type="text" size="5"/></td>
       <td><input id="金4" type="text" size="5"/></td>
     </tr>
-    
+
     <tr class="sgc-2" align="center">
       <td>5限</td>
       <td><input id="月5" type="text" size="5"/></td>
@@ -4705,7 +4723,7 @@
       <td><input id="木5" type="text" size="5"/></td>
       <td><input id="金5" type="text" size="5"/></td>
     </tr>
-    
+
     <tr class="sgc-2" align="center">
       <td>6限</td>
       <td><input id="月6" type="text" size="5"/></td>
@@ -4713,7 +4731,7 @@
       <td><input id="水6" type="text" size="5"/></td>
       <td><input id="木6" type="text" size="5"/></td>
       <td><input id="金6" type="text" size="5"/></td>
-    </tr>                    
+    </tr>
 </table>
 <br />
   <form>
